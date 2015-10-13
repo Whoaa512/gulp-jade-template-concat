@@ -11,7 +11,7 @@ function pluginError (message) {
 module.exports = function jadeConcat(fileName, _opts) {
   if (!fileName) throw pluginError('Missing fileName')
 
-  var defaults = {templateVariable: "templates"}
+  var templateVariable = _opts.templateVariable != null ? _opts.templateVariable : 'templates'
   var concatString = "";
 
 
@@ -30,7 +30,7 @@ module.exports = function jadeConcat(fileName, _opts) {
 
   function end () {
     //wrap concatenated string in template object
-    var templateString = "var " + _opts.templateVariable + " = {\n" + concatString + "}";
+    var templateString = "var " + templateVariable + " = {\n" + concatString + "}";
 
     this.queue(new gutil.File({
       path: fileName,
